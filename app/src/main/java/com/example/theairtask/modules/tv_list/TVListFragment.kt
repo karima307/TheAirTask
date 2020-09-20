@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theairtask.R
 import com.example.theairtask.databinding.FragmentTvListBinding
+import com.example.theairtask.modules.tv_details.TVDetailsFragment
 import com.nmg.baseinfrastructure.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_tv_list.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -20,34 +21,39 @@ class TVListFragment : BaseFragment<FragmentTvListBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rcTVList.layoutManager = GridLayoutManager(context,2)
+        rcTVList.layoutManager = GridLayoutManager(context, 2)
 
         tvListViewModel.observeTvList(viewLifecycleOwner)
         tvListViewModel.tvList.observe(viewLifecycleOwner, Observer {
-            if(it!=null){
+            if (it != null) {
                 setupList(it)
             }
         })
         tvListViewModel.loading.observe(viewLifecycleOwner, Observer {
-            if(it){
+            if (it) {
                 tv_list_progress.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 tv_list_progress.visibility = View.GONE
 
             }
         })
 
     }
+
     companion object {
         fun newInstance() = TVListFragment()
     }
 
-    fun setupList(list:List<ResultObject>) {
+    fun setupList(list: List<ResultObject>) {
 
-        val groupAdapter=TVListAdapter(requireContext(), list as MutableList<ResultObject>
-        ) { id->
-
+        val groupAdapter = TVListAdapter(
+            requireContext(), list as MutableList<ResultObject>
+        ) { id ->
+            replaceFragment(
+                TVDetailsFragment.newInstance(id.toInt()),
+                R.id.tvActivityContainer,
+                true
+            )
         }
         rcTVList.adapter = groupAdapter
 
