@@ -11,6 +11,7 @@ import com.example.theairtask.R
 import com.example.theairtask.data.remote.ApiConst
 import com.example.theairtask.utils.LoadImage
 import kotlinx.android.synthetic.main.item_tv_list.view.*
+import kotlinx.android.synthetic.main.layout_rating.view.*
 import java.lang.Exception
 
 class TVListAdapter(

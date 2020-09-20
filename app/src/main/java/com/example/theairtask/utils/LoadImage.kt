@@ -13,13 +13,13 @@ import com.bumptech.glide.request.target.Target
 import com.example.theairtask.R
 
 object LoadImage {
-  /*  fun GlideProfileNormal(context: Context, imageName:String, imageView: ImageView){
+   /* fun GlideProfileNormal(context: Context, imageName:String, imageView: ImageView){
         Glide.with(context).applyDefaultRequestOptions(
             RequestOptions()
-            .placeholder(R.drawable.icon_avatar)
-            .error(R.drawable.icon_avatar))
+            .placeholder(R.drawable.ic_place_holder)
+            .error(R.drawable.ic_place_holder))
             .load(imageName)
-            .fitCenter()
+            .circleCrop().fitCenter()
             .into(imageView)
     }*/
 

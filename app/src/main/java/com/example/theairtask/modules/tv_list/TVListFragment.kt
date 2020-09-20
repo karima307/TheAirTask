@@ -46,7 +46,7 @@ class TVListFragment : BaseFragment<FragmentTvListBinding>() {
 
     fun setupList(list: List<ResultObject>) {
 
-        val groupAdapter = TVListAdapter(
+        val listAdapter = TVListAdapter(
             requireContext(), list as MutableList<ResultObject>
         ) { id ->
             replaceFragment(
@@ -55,7 +55,7 @@ class TVListFragment : BaseFragment<FragmentTvListBinding>() {
                 true
             )
         }
-        rcTVList.adapter = groupAdapter
+        rcTVList.adapter = listAdapter
 
 
     }

@@ -9,4 +9,7 @@
     <color name="gray_dark">#525151</color>
     <color name="gray_lite">#F4F4F4</color>
     <color name="gray_lite_lite">#DCD8D8</color>
+    <color name="default_orange">#f29e3b</color>
+    <color name="transparent">#00000000</color>
+
 </resources>
