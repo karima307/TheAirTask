@@ -7,15 +7,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theairtask.R
 import com.example.theairtask.databinding.FragmentTvListBinding
+import com.example.theairtask.modules.session.SessionViewModel
 import com.example.theairtask.modules.tv_details.TVDetailsFragment
 import com.nmg.baseinfrastructure.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_tv_list.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TVListFragment : BaseFragment<FragmentTvListBinding>() {
     override val layoutRes: Int
         get() = R.layout.fragment_tv_list
     val tvListViewModel: TVListViewModel by sharedViewModel()
+    val sessionViewModel: SessionViewModel by inject ()
     override fun initUI(savedInstanceState: Bundle?) {
     }
 
@@ -37,6 +40,7 @@ class TVListFragment : BaseFragment<FragmentTvListBinding>() {
 
             }
         })
+        sessionViewModel.observeGetSessionId(viewLifecycleOwner)
 
     }
 

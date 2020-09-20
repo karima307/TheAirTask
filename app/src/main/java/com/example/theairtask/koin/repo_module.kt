@@ -1,5 +1,6 @@
 package com.example.theairtask.koin
 
+import com.example.theairtask.modules.session.SessionRepo
 import com.example.theairtask.modules.tv_details.TVDetailsRepo
 import com.example.theairtask.modules.tv_list.TVListRepo
 import org.koin.dsl.module
@@ -10,5 +11,8 @@ single {
 }
     single {
     TVDetailsRepo(get(),get())
+}
+    single {
+        SessionRepo(get(),get())
 }
 }
