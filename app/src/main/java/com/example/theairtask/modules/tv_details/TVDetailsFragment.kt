@@ -86,11 +86,16 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
                 )
             }
         })
-        viewModel.success.observe(viewLifecycleOwner, Observer {
+
+        var observer:Observer<Boolean>? = null
+        observer= Observer {
             if(it){
                 Toast.makeText(requireContext(),getString(R.string.submit_successfully),Toast.LENGTH_LONG).show()
+                viewModel.success.value = false
             }
-        })
+
+        }
+        viewModel.success.observe(viewLifecycleOwner,observer)
     }
 
     fun getDetails(tvID: Int) {
