@@ -47,4 +47,21 @@ class TVDetailsRepo (val apiService: ApiService, val contextProviders: ContextPr
             override fun loadFromDb(): LiveData<SubmitRateReasponse>? = null
         }.asLiveData()
     }
+
+    fun getRecommendedTVList(tvId:Int): LiveData<Resource<TVListResponse>> {
+        return object : NetworkBoundResource<TVListResponse, TVListResponse>(contextProviders) {
+            private var response: TVListResponse? = null
+            override fun saveCallResult(item: TVListResponse) {
+                response = item
+            }
+
+            override fun getResult(): TVListResponse? = response
+            override fun createCall(): LiveData<ApiResponse<TVListResponse>> {
+                return apiService.getRecommended(tvId,ApiConst.TOKEN)
+            }
+
+            override fun shouldFetch(data: TVListResponse?): Boolean = true
+            override fun loadFromDb(): LiveData<TVListResponse>? = null
+        }.asLiveData()
+    }
 }

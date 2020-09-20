@@ -2,7 +2,9 @@ package com.example.theairtask.modules.tv_details
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.theairtask.R
@@ -11,6 +13,8 @@ import com.example.theairtask.databinding.FragmentTvListDetailsBinding
 import com.example.theairtask.modules.session.SessionViewModel
 import com.example.theairtask.modules.tv_details.creators.CreatorAdapter
 import com.example.theairtask.modules.tv_details.networks.NetworksAdapter
+import com.example.theairtask.modules.tv_list.ResultObject
+import com.example.theairtask.modules.tv_list.TVListAdapter
 import com.example.theairtask.utils.LoadImage
 import com.nmg.baseinfrastructure.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_tv_list_details.*
@@ -42,6 +46,7 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
         })
         getDetails(tvID)
         submitRate(tvID)
+        getRecommendedList(tvID)
     }
 
     fun setupNetworkList(list: List<Networks>) {
@@ -78,6 +83,11 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
                 )
             }
         })
+        viewModel.success.observe(viewLifecycleOwner, Observer {
+            if(it){
+                Toast.makeText(requireContext(),getString(R.string.submit_successfully),Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     fun getDetails(tvID: Int) {
@@ -92,8 +102,14 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
                 )
                 tvRate.text = it.vote_average.toString()
                 it.genres!!.forEach {
-                    genres.append(it.name ?: "")
-                    genres.append(",")
+                    if (genres.isEmpty()) {
+                        genres.append(it.name ?: "")
+                        genres.append(",")
+                    } else {
+                        genres.clear()
+                        genres.append(it.name ?: "")
+                        genres.append(",")
+                    }
                 }
 
                 tvGenre.text = genres.toString()
@@ -107,6 +123,29 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
         })
     }
 
+    fun getRecommendedList(tvID: Int) {
+        viewModel.observeRecommendedTVList(tvID, viewLifecycleOwner)
+        viewModel.tvRecommendedList.observe(viewLifecycleOwner, Observer {
+            setupRecommendedList(it)
+        })
+    }
+
+    fun setupRecommendedList(list: List<ResultObject>) {
+
+        val listAdapter = TVListAdapter(
+            requireContext(), list as MutableList<ResultObject>
+        ) { id ->
+            replaceFragment(
+                newInstance(id.toInt()),
+                R.id.tvActivityContainer,
+                true
+            )
+        }
+        frameRecommended.idRec.adapter = listAdapter
+
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         frame_network.idRec.layoutManager =
@@ -114,6 +153,8 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
         frame_created_by.idRec.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         rate.stepSize = 0.5F
+        frameRecommended.idRec.layoutManager = GridLayoutManager(context, 2)
+
 
     }
 

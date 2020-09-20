@@ -16,6 +16,10 @@ interface ApiService {
     fun getTVListDetails(@Path("tv_id") tv_id: Int,@Query("api_key") api_key: String): LiveData<ApiResponse<TVDetailsResponse>>
     @GET("3/authentication/guest_session/new")
     fun getGuestSessionId(@Query("api_key") api_key: String): LiveData<ApiResponse<SessionResponse>>
+
+
+    @GET("3/tv/{tv_id}/recommendations")
+    fun getRecommended( @Path("tv_id") tv_id: Int,@Query("api_key") api_key: String): LiveData<ApiResponse<TVListResponse>>
     @POST("3/tv/{tv_id}/rating")
     fun submitRate(
         @Path("tv_id") tv_id: Int,

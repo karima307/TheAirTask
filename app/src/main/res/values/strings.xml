@@ -3,4 +3,6 @@
     <string name="episode">episode</string>
     <string name="networks">Networks</string>
     <string name="created_by">Created By</string>
+    <string name="top_recommendad">Top Recommended</string>
+    <string name="submit_successfully">"the rate submitted successfully "</string>
 </resources>

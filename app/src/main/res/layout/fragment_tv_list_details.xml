@@ -112,7 +112,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="16dp"
                         android:textColor="@color/white"
-                         app:layout_constraintStart_toStartOf="@id/ivTVPosterDetails"
+                        app:layout_constraintStart_toStartOf="@id/ivTVPosterDetails"
                         app:layout_constraintTop_toBottomOf="@id/tvGenre"
                         tools:text="I Am Not An Animal is an animated comedy series about the only six talking animals in the world, whose cosseted existence in a vivisection unit is turned upside down when they are liberated by animal rights activists" />
 
@@ -150,7 +150,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/networks"
                         android:textColor="@color/white"
-                         android:textStyle="bold"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@id/tvHomePage"
                         app:layout_constraintTop_toBottomOf="@id/tvHomePage" />
 
@@ -173,7 +173,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/created_by"
                         android:textColor="@color/white"
-                         android:textStyle="bold"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@id/tvOverview"
                         app:layout_constraintTop_toBottomOf="@id/frame_network" />
 
@@ -185,6 +185,29 @@
                         app:layout_constraintEnd_toEndOf="@id/tvOverview"
                         app:layout_constraintStart_toStartOf="@id/tvCreated"
                         app:layout_constraintTop_toBottomOf="@id/tvCreated">
+
+                        <include layout="@layout/layout_network_list" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvRecomended"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/top_recommendad"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@id/tvOverview"
+                        app:layout_constraintTop_toBottomOf="@id/frame_created_by" />
+
+                    <FrameLayout
+                        android:id="@+id/frameRecommended"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="@id/tvOverview"
+                        app:layout_constraintStart_toStartOf="@id/tvRecomended"
+                        app:layout_constraintTop_toBottomOf="@id/tvRecomended">
 
                         <include layout="@layout/layout_network_list" />
                     </FrameLayout>

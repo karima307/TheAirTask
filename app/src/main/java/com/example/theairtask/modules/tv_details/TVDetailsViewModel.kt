@@ -13,8 +13,10 @@ class TVDetailsViewModel(val repo: TVDetailsRepo):BaseViewModel() {
     val loading = MutableLiveData<Boolean>()
     val success = MutableLiveData<Boolean>()
     val tvList = MutableLiveData<TVDetailsResponse>()
+    val tvRecommendedList = MutableLiveData<List<ResultObject>>()
 
     private fun getTVDtails(tvID:Int) = repo.getTVDtails(tvID)
+    private fun getRecommendedTVList(tvID:Int) = repo.getRecommendedTVList(tvID)
     private fun submitRate(tvId:Int , sessionID:String , rate:Double) = repo.submitRate(tvId,sessionID,rate)
 
     fun observeTVDtails(tvID:Int,lifecycleOwner: LifecycleOwner) {
@@ -38,22 +40,40 @@ class TVDetailsViewModel(val repo: TVDetailsRepo):BaseViewModel() {
             }
         })
     }
-    fun observeSubmitRate(tvId:Int , sessionID:String , rate:Double,lifecycleOwner: LifecycleOwner) {
-        submitRate(tvId,sessionID,rate).observe(lifecycleOwner, Observer {
+    fun observeRecommendedTVList(tvID:Int,lifecycleOwner: LifecycleOwner) {
+        getRecommendedTVList(tvID).observe(lifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     loading.value = true
-                    error.value = false
                     error.value = false
 
                 }
                 Status.SUCCESS -> {
                          loading.value = false
                         error.value = false
-                        success.value = true
+                    tvRecommendedList.value = it.data!!.results
                  }
                 Status.ERROR -> {
                     loading.value = false
+                    error.value = true
+
+                }
+            }
+        })
+    }
+    fun observeSubmitRate(tvId:Int , sessionID:String , rate:Double,lifecycleOwner: LifecycleOwner) {
+        submitRate(tvId,sessionID,rate).observe(lifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    error.value = false
+                    error.value = false
+
+                }
+                Status.SUCCESS -> {
+                        error.value = false
+                        success.value = true
+                 }
+                Status.ERROR -> {
                     error.value = true
                     error.value = false
 
