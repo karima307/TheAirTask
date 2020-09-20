@@ -1,5 +1,8 @@
 package com.example.theairtask.modules.tv_details
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -22,7 +25,7 @@ import kotlinx.android.synthetic.main.layout_network_list.view.*
 import kotlinx.android.synthetic.main.layout_rating.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.lang.StringBuilder
+
 
 class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
     override val layoutRes: Int
@@ -116,6 +119,15 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
                 tvEpisodeNumber.text =
                     it.number_of_episodes.toString() + " " + getString(R.string.episode)
                 tvHomePage.text = it.homepage
+                tvHomePage.setOnClickListener {view->
+                    try {
+                        val myIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it.homepage))
+                        startActivity(myIntent)
+                    } catch (e: ActivityNotFoundException) {
+
+                        e.printStackTrace()
+                    }
+                }
                 tvOverview.text = it.overview
                 setupNetworkList(it.networks!!)
                 setupCreatorByList(it.created_by!!)
