@@ -51,7 +51,7 @@
 
                     <com.iarcuschin.simpleratingbar.SimpleRatingBar
 
-                        android:id="@+id/observeSubmitRate"
+                        android:id="@+id/rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -65,6 +65,7 @@
                         app:srb_borderColor="@color/default_orange"
                         app:srb_fillColor="@color/default_orange"
                         app:srb_numberOfStars="5"
+
                         app:srb_starBorderWidth="3" />
 
                     <ImageView

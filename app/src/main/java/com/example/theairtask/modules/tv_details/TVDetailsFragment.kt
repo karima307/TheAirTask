@@ -68,7 +68,8 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
 
     fun submitRate(tvID: Int) {
         sessionViewModel.sessionId.observe(viewLifecycleOwner, Observer { sessionResp ->
-            observeSubmitRate.setOnRatingBarChangeListener { simpleRatingBar, rating, fromUser ->
+
+            rate.setOnRatingBarChangeListener { _, rating, _ ->
                 viewModel.observeSubmitRate(
                     tvID,
                     sessionResp.guest_session_id!!,
@@ -112,6 +113,7 @@ class TVDetailsFragment : BaseFragment<FragmentTvListDetailsBinding>() {
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         frame_created_by.idRec.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        rate.stepSize = 0.5F
 
     }
 

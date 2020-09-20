@@ -32,7 +32,6 @@ class TVDetailsRepo (val apiService: ApiService, val contextProviders: ContextPr
 
         val rateMap = HashMap<String,Any>()
         rateMap["value"]= rate
-        rateMap["api_key"] =   ApiConst.TOKEN
         return object : NetworkBoundResource<SubmitRateReasponse, SubmitRateReasponse>(contextProviders) {
             private var response: SubmitRateReasponse? = null
             override fun saveCallResult(item: SubmitRateReasponse) {
@@ -41,7 +40,7 @@ class TVDetailsRepo (val apiService: ApiService, val contextProviders: ContextPr
 
             override fun getResult(): SubmitRateReasponse? = response
             override fun createCall(): LiveData<ApiResponse<SubmitRateReasponse>> {
-                return apiService.submitRate(tvId,rateMap,sessionID)
+                return apiService.submitRate(tvId,rateMap,sessionID, ApiConst.TOKEN)
             }
 
             override fun shouldFetch(data: SubmitRateReasponse?): Boolean = true
